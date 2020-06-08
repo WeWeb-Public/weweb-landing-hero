@@ -1,12 +1,12 @@
 {
-    "name": "ww-landing-hero",
+    "name": "weweb_landing_hero",
     "type": "section",
     "wewebPublic": "true",
     "repository": {
         "type": "git",
         "url": "https://github.com/WeWeb-Public/weweb-landing-hero"
     },
-    "version": "0.0.2",
+    "version": "0.0.3",
     "private": true,
     "scripts": {
         "build": "weweb-build",
