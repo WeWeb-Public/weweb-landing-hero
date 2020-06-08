@@ -5,12 +5,16 @@
 <!-- This is your HTML -->
 <template>
   <div class="ww-landing-hero">
+    <!-- wwManager:start -->
+    <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
+    <!-- wwManager:end -->
     <div class="bubbles-container">
-      <ww-shape v-for="(bubble,index) in section.data.positions"
-                class="bubbles-wrapper"
-                :scale="bubble.scale"
-                :color="bubble.color"
-                :key="index"></ww-shape>
+      <ww-bubble v-for="(bubble,index) in section.data.positions"
+                 class="bubbles-wrapper"
+                 :scale="bubble.scale"
+                 :color="bubble.color"
+                 :key="index">
+      </ww-bubble>
     </div>
   </div>
 
@@ -20,14 +24,14 @@
     const wwo = window.wwLib.wwObject;
     const wwu = window.wwLib.wwUtils;
 
-    import wwShape from './bubble.vue';
+    import wwBubble from './bubble.vue';
     import positions from './constants';
     import Motion from './motion';
 
     export default {
         name: '__COMPONENT_NAME__',
         components: {
-            wwShape
+            wwBubble
         },
         motion: {},
         props: {
