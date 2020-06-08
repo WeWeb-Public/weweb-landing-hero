@@ -26,7 +26,9 @@ const Motion = (elements) => {
     const layout = () => {
         elements.forEach((el, idx) => {
             const { x, y, alpha } = positions[idx];
-            el.style.transform = `translate(${x}px,${y}px) rotateZ(${alpha}deg)`;
+            el.style.top = `${y}px`;
+            el.style.left = `${x}px`;
+            el.style.transform = `rotateZ(${alpha}deg)`;
         });
     };
 

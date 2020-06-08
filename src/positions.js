@@ -50,7 +50,58 @@ const positions = {
                 scale: 2,
                 color: '#EA5E1C'
             }
-        ]
+        ],
+    sm: [
+        {
+            x: -40,
+            y: 85,
+            alpha: -32,
+            scale: 1,
+            color: '#EA5E1C'
+        },
+        {
+            x: 192,
+            y: 515,
+            alpha: 32,
+            scale: 2,
+            color: '#EA588D'
+        },
+        {
+            x: 363,
+            y: 78,
+            alpha: 16,
+            scale: 0.375,
+            color: '#FDC806'
+        },
+        {
+            x: 30,
+            y: 425,
+            alpha: -8,
+            scale: 0.375,
+            color: '#2E85C2'
+        },
+        {
+            x: 736,
+            y: 455,
+            alpha: 16,
+            scale: 0.5625,
+            color: '#49B9B3'
+        },
+        {
+            x: 742,
+            y: 62,
+            alpha: -32,
+            scale: 1,
+            color: '#E02A4D'
+        },
+        {
+            x: 764,
+            y: 500,
+            alpha: 32,
+            scale: 2,
+            color: '#EA5E1C'
+        }
+    ]
 };
 
 export default positions;

@@ -51,7 +51,7 @@
             sectionCtrl: Object
         },
         data: () => ({
-            screenSize: 'lg'
+            screenSize: void 0
         }),
         computed: {
             section () {
@@ -66,13 +66,12 @@
             this.init();
         },
         mounted () {
-            const elements = [...this.$el.querySelectorAll('.bubble')];
-            this.motion = Motion(elements);
-            this.motion.init(this.section.data.initialPositions);
-            this.motion.start();
+            this.layout();
+            window.addEventListener('resize', this.layout);
         },
         destroyed () {
             this.motion.stop();
+            window.addEventListener('resize', this.layout);
         },
         methods: {
             init () {
@@ -91,6 +90,17 @@
                 if (needUpdate) {
                     this.sectionCtrl.update(this.section);
                 }
+            },
+            layout () {
+                if (this.screenSize === this.getScreenSize && this.motion) return;
+                this.motion && this.motion.stop();
+                this.screenSize = this.getScreenSize;
+                this.section.data.initialPositions = positions[this.screenSize];
+                this.sectionCtrl.update(this.section);
+                const elements = [...this.$el.querySelectorAll('.bubble')];
+                this.motion = Motion(elements);
+                this.motion.init(this.section.data.initialPositions);
+                this.motion.start();
             },
             // --------- EDITOR FUNCTIONS ---------
             // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
@@ -123,24 +133,30 @@
   .ww-landing-hero {
     position: relative;
 
-    .bubbles {
-      &-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1,
-      }
+    .bubbles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1,
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: transparent;
+
+    @media(min-width: 768px) {
+      width: 100%;
+      height: 600px;
     }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      height: 716px;
+    @media (min-width: 1200px) {
       width: 1440px;
-      margin: auto;
-      background: transparent;
+      height: 716px;
     }
   }
 
