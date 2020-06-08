@@ -1,7 +1,6 @@
 <template>
-  <div>
     <svg :width="124 * scale"
-         :height="124 *scale"
+         :height="124 * scale"
          viewBox="0 0 132 132"
          fill="none"
          class="bubble"
@@ -15,7 +14,6 @@
             :stroke="color"
             :stroke-width="Math.ceil(4/scale)"></rect>
     </svg>
-  </div>
 </template>
 <script>
     export default {
@@ -33,6 +31,6 @@
 </script>
 <style>
   .bubble {
-    transition :all 3000ms ease-in-out
+    transition: all 3000ms ease-in-out
   }
 </style>

@@ -9,15 +9,28 @@
     <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
     <!-- wwManager:end -->
     <div class="bubbles-container">
-      <ww-bubble v-for="(bubble,index) in section.data.positions"
-                 class="bubbles-wrapper"
+      <ww-bubble v-for="(bubble,index) in section.data.initialPositions"
                  :scale="bubble.scale"
                  :color="bubble.color"
                  :key="index">
       </ww-bubble>
     </div>
+    <div class="content">
+      <wwLayoutColumn tag="div"
+                      ww-default="ww-text"
+                      :ww-list="section.data.contentList"
+                      @ww-add="add(section.data.contentList, $event)"
+                      @ww-remove="remove(section.data.contentList, $event)">
+        <wwObject tag="div"
+                  ww-default="ww-text"
+                  v-for="item in section.data.contentList"
+                  :key="item.uniqueId"
+                  :ww-object="item"
+        >
+        </wwObject>
+      </wwLayoutColumn>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -25,7 +38,7 @@
     const wwu = window.wwLib.wwUtils;
 
     import wwBubble from './bubble.vue';
-    import positions from './constants';
+    import positions from './positions';
     import Motion from './motion';
 
     export default {
@@ -38,16 +51,11 @@
             sectionCtrl: Object
         },
         data: () => ({
-            x: 0,
-            y: 0,
-            alpha: 0
+            screenSize: 'lg'
         }),
         computed: {
             section () {
                 return this.sectionCtrl.get();
-            },
-            editMode () {
-                return this.sectionCtrl.getEditMode() === 'CONTENT';
             },
             getScreenSize () {
                 return this.$store.getters['front/getScreenSize'];
@@ -58,7 +66,9 @@
             this.init();
         },
         mounted () {
-            this.motion = Motion(this.$el.querySelectorAll('.bubbles-wrapper > .bubble'), this.section.data.positions);
+            const elements = [...this.$el.querySelectorAll('.bubble')];
+            this.motion = Motion(elements);
+            this.motion.init(this.section.data.initialPositions);
             this.motion.start();
         },
         destroyed () {
@@ -69,14 +79,40 @@
                 let needUpdate = false;
                 this.section.data = this.section.data || {};
 
-                if (!this.section.data.positions) {
-                    this.section.data.positions = positions.lg;
+                if (!this.section.data.initialPositions) {
+                    this.section.data.initialPositions = positions[this.getScreenSize];
+                    needUpdate = true;
+                }
+
+                if (!this.section.data.contentList) {
+                    this.section.data.contentList = [];
                     needUpdate = true;
                 }
                 if (needUpdate) {
                     this.sectionCtrl.update(this.section);
                 }
+            },
+            // --------- EDITOR FUNCTIONS ---------
+            // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
+            // So It won't in the published website!
+            /* wwManager:start */
+            add (list, options) {
+                try {
+                    list.splice(options.index, 0, options.wwObject);
+                    this.sectionCtrl.update(this.section);
+                } catch (error) {
+                    wwLib.wwLog.error('ERROR : ', error);
+                }
+            },
+            remove (list, options) {
+                try {
+                    list.splice(options.index, 1);
+                    this.sectionCtrl.update(this.section);
+                } catch (error) {
+                    wwLib.wwLog.error('ERROR : ', error);
+                }
             }
+            /* wwManager:end */
         }
     };
 </script>
@@ -86,20 +122,25 @@
        scoped>
   .ww-landing-hero {
     position: relative;
-    width: 100%;
 
     .bubbles {
       &-container {
-        position: relative;
-        height: 716px;
-        width: 1440px;
-        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: -1,
       }
+    }
 
-      &-wrapper {
-        position: absolute;
-      }
+    .content {
+      display: flex;
+      flex-direction: column;
+      height: 716px;
+      width: 1440px;
+      margin: auto;
+      background: transparent;
     }
   }
 
