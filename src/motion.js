@@ -30,7 +30,7 @@ const Motion = (elements, positions) => {
 
     return {
         start () {
-            //init();
+            init();
             update();
         },
         stop () {
