@@ -19,14 +19,14 @@ const positions = {
             y: 420,
             alpha: 16,
             scale: 0.375,
-            color: '#FDC806'
+            color: '#2E85C2'
         },
         {
             x: 542,
             y: 102,
             alpha: -8,
             scale: 0.375,
-            color: '#49B9B3'
+            color: '#FDC806'
         },
         {
             x: 1090,
