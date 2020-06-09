@@ -51,7 +51,8 @@
             sectionCtrl: Object
         },
         data: () => ({
-            screenSize: void 0
+            screenSize: void 0,
+            elements: []
         }),
         computed: {
             section () {
@@ -66,12 +67,14 @@
             this.init();
         },
         mounted () {
+            this.elements = [...this.$el.querySelectorAll('.bubble')];
+            this.motion = Motion(this.elements);
             this.layout();
             window.addEventListener('resize', this.layout);
         },
         destroyed () {
-            this.motion.stop();
-            window.addEventListener('resize', this.layout);
+            this.motion && this.motion.stop();
+            window.removeEventListener('resize', this.layout);
         },
         methods: {
             init () {
@@ -92,13 +95,11 @@
                 }
             },
             layout () {
-                if (this.screenSize === this.getScreenSize && this.motion) return;
+                if (this.screenSize === this.getScreenSize) return;
                 this.motion && this.motion.stop();
                 this.screenSize = this.getScreenSize;
                 this.section.data.initialPositions = positions[this.screenSize];
                 this.sectionCtrl.update(this.section);
-                const elements = [...this.$el.querySelectorAll('.bubble')];
-                this.motion = Motion(elements);
                 this.motion.init(this.section.data.initialPositions);
                 this.motion.start();
             },
@@ -132,6 +133,8 @@
        scoped>
   .ww-landing-hero {
     position: relative;
+    width: 100%;
+    height: 100vh;
 
     .bubbles-container {
       position: absolute;
@@ -139,24 +142,24 @@
       left: 0;
       right: 0;
       bottom: 0;
-      z-index: -1,
-    }
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    background: transparent;
-
-    @media(min-width: 768px) {
-      width: 100%;
-      height: 600px;
+      z-index: -1;
     }
 
-    @media (min-width: 1200px) {
-      width: 1440px;
-      height: 716px;
+    .content {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      background: transparent;
+
+      @media(min-width: 768px) {
+        width: 100%;
+        height: 838px;
+      }
+
+      @media (min-width: 1200px) {
+        width: 1440px;
+        height: 716px;
+      }
     }
   }
 

@@ -11,12 +11,11 @@ const Motion = (elements) => {
         loopId = requestAnimationFrame(() => {
             elapsed = new Date().getTime() - start;
             if (elapsed >= maxDuration) {
-                elements.forEach((el, idx) => {
-                    let { x, y, alpha } = positions[idx];
-                    x += +2 * amplitude * Math.random() - amplitude;
-                    y += +2 * amplitude * Math.random() - amplitude;
-                    alpha += alpha + 2 * amplitude * Math.random() - amplitude;
-                    elements[idx].style.transform = `translate(${x}px,${y}px) rotateZ(${alpha}deg)`;
+                positions.forEach((pos, idx) => {
+                    pos.x += +2 * amplitude * Math.random() - amplitude;
+                    pos.y += +2 * amplitude * Math.random() - amplitude;
+                    pos.alpha += 2 * amplitude * Math.random() - amplitude;
+                    elements[idx].style.transform = `translate(${pos.x}px,${pos.y}px) rotateZ(${pos.alpha}deg)`;
                 });
                 start = new Date().getTime();
             }
@@ -24,20 +23,19 @@ const Motion = (elements) => {
         });
     };
     const layout = () => {
+        if (positions.length !== elements.length) return;
         elements.forEach((el, idx) => {
             const { x, y, alpha } = positions[idx];
-            el.style.top = `${y}px`;
-            el.style.left = `${x}px`;
-            el.style.transform = `rotateZ(${alpha}deg)`;
+            el.style.transform = `translate(${x}px,${y}px) rotateZ(${alpha}deg)`;
         });
     };
 
     return {
         init (initialPositions) {
             positions = initialPositions;
-            layout();
         },
         start () {
+            layout();
             update();
         },
         stop () {

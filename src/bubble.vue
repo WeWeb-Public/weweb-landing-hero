@@ -31,6 +31,7 @@
 </script>
 <style>
   .bubble {
+    position: absolute;
     transition: all 3000ms ease-in-out
   }
 </style>
