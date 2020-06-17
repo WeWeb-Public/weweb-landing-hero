@@ -6,7 +6,7 @@
     "insertPragma": false,
     "jsxBracketSameLine": true,
     "jsxSingleQuote": true,
-    "printWidth": 240,
+    "printWidth": 80,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,
@@ -15,5 +15,24 @@
     "tabWidth": 4,
     "trailingComma": "none",
     "useTabs": false,
-    "vueIndentScriptAndStyle": false
+    "vueIndentScriptAndStyle": false,
+    "prettier-vue/prettier": [
+        "warn",
+        {
+            "semi": false,
+            "trailingComma": "all",
+            "useTabs": true,
+            "tabWidth": 2
+        }
+    ],
+    "vue/max-attributes-per-line": ["warn", {
+        "singleline": 1,
+        "multiline": {
+            "max": 1,
+            "allowFirstLine": false
+        }
+    }],
+    "vue/html-indent": ["error", "tab", {
+        "baseIndent": 1
+    }]
 }

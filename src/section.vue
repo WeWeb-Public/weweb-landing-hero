@@ -9,11 +9,30 @@
         <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
         <!-- wwManager:end -->
         <div class="bubbles-container">
-            <ww-bubble v-for="(bubble, index) in section.data.initialPositions" :scale="bubble.scale" :color="bubble.color" :key="index"> </ww-bubble>
+            <ww-bubble
+                v-for="(bubble, index) in section.data.initialPositions"
+                :scale="bubble.scale"
+                :color="bubble.color"
+                :key="index"
+            >
+            </ww-bubble>
         </div>
         <div class="content">
-            <wwLayoutColumn tag="div" ww-default="ww-text" :ww-list="section.data.contentList" @ww-add="add(section.data.contentList, $event)" @ww-remove="remove(section.data.contentList, $event)">
-                <wwObject tag="div" ww-default="ww-text" v-for="item in section.data.contentList" :key="item.uniqueId" :ww-object="item"> </wwObject>
+            <wwLayoutColumn
+                tag="div"
+                ww-default="ww-text"
+                :ww-list="section.data.contentList"
+                @ww-add="add(section.data.contentList, $event)"
+                @ww-remove="remove(section.data.contentList, $event)"
+            >
+                <wwObject
+                    tag="div"
+                    ww-default="ww-text"
+                    v-for="item in section.data.contentList"
+                    :key="item.uniqueId"
+                    :ww-object="item"
+                >
+                </wwObject>
             </wwLayoutColumn>
         </div>
     </div>
@@ -65,7 +84,8 @@ export default {
             this.section.data = this.section.data || {};
 
             if (!this.section.data.initialPositions) {
-                this.section.data.initialPositions = positions[this.getScreenSize];
+                this.section.data.initialPositions =
+                    positions[this.getScreenSize];
                 needUpdate = true;
             }
 
