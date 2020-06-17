@@ -1,4 +1,4 @@
-const Motion = (elements) => {
+const Motion = elements => {
     const maxDuration = 3000;
     const amplitude = 20;
 
@@ -31,14 +31,14 @@ const Motion = (elements) => {
     };
 
     return {
-        init (initialPositions) {
+        init(initialPositions) {
             positions = initialPositions;
         },
-        start () {
+        start() {
             layout();
             update();
         },
-        stop () {
+        stop() {
             cancelAnimationFrame(loopId);
         }
     };
