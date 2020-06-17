@@ -1,25 +1,20 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    node: true
   },
-  extends: [
-    "standard",
-    "plugin:vue/essential",
-    "eslint:recommended",
-    "@vue/prettier",
-  ],
+  extends: ['standard', 'plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
   rules: {
-    semi: ["warn", "always"],
-    quotes: ["warn", "single", { avoidEscape: true }],
-    "no-console": "warn",
+    semi: ['warn', 'always'],
+    quotes: ['warn', 'single', { avoidEscape: true }],
+    'no-console': 'warn'
   },
   parserOptions: {
-    parser: "babel-eslint",
+    parser: 'babel-eslint'
   },
   globals: {
-    wwLib: "readonly",
-    axios: "readonly",
-    _: "readonly",
-  },
+    wwLib: 'readonly',
+    axios: 'readonly',
+    _: 'readonly'
+  }
 };

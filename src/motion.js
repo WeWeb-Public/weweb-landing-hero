@@ -1,4 +1,4 @@
-const Motion = (elements) => {
+const Motion = elements => {
   const maxDuration = 3000;
   const amplitude = 20;
 
@@ -15,9 +15,7 @@ const Motion = (elements) => {
           pos.x += +2 * amplitude * Math.random() - amplitude;
           pos.y += +2 * amplitude * Math.random() - amplitude;
           pos.alpha += 2 * amplitude * Math.random() - amplitude;
-          elements[
-            idx
-          ].style.transform = `translate(${pos.x}px,${pos.y}px) rotateZ(${pos.alpha}deg)`;
+          elements[idx].style.transform = `translate(${pos.x}px,${pos.y}px) rotateZ(${pos.alpha}deg)`;
         });
         start = new Date().getTime();
       }
@@ -33,16 +31,16 @@ const Motion = (elements) => {
   };
 
   return {
-    init(initialPositions) {
+    init (initialPositions) {
       positions = initialPositions;
     },
-    start() {
+    start () {
       layout();
       update();
     },
-    stop() {
+    stop () {
       cancelAnimationFrame(loopId);
-    },
+    }
   };
 };
 

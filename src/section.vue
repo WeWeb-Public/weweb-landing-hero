@@ -9,12 +9,7 @@
     <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
     <!-- wwManager:end -->
     <div class="bubbles-container">
-      <ww-bubble
-        v-for="(bubble, index) in section.data.initialPositions"
-        :scale="bubble.scale"
-        :color="bubble.color"
-        :key="index"
-      >
+      <ww-bubble v-for="(bubble, index) in section.data.initialPositions" :scale="bubble.scale" :color="bubble.color" :key="index">
       </ww-bubble>
     </div>
     <div class="content">
@@ -25,13 +20,7 @@
         @ww-add="add(section.data.contentList, $event)"
         @ww-remove="remove(section.data.contentList, $event)"
       >
-        <wwObject
-          tag="div"
-          ww-default="ww-text"
-          v-for="item in section.data.contentList"
-          :key="item.uniqueId"
-          :ww-object="item"
-        >
+        <wwObject tag="div" ww-default="ww-text" v-for="item in section.data.contentList" :key="item.uniqueId" :ww-object="item">
         </wwObject>
       </wwLayoutColumn>
     </div>
@@ -39,47 +28,47 @@
 </template>
 
 <script>
-import wwBubble from "./bubble.vue";
-import positions from "./positions";
-import Motion from "./motion";
+import wwBubble from './bubble.vue';
+import positions from './positions';
+import Motion from './motion';
 
 export default {
-  name: "__COMPONENT_NAME__",
+  name: '__COMPONENT_NAME__',
   components: {
-    wwBubble,
+    wwBubble
   },
   motion: {},
   props: {
-    sectionCtrl: Object,
+    sectionCtrl: Object
   },
   data: () => ({
     screenSize: undefined,
-    elements: [],
+    elements: []
   }),
   computed: {
-    section() {
+    section () {
       return this.sectionCtrl.get();
     },
-    getScreenSize() {
-      return this.$store.getters["front/getScreenSize"];
-    },
+    getScreenSize () {
+      return this.$store.getters['front/getScreenSize'];
+    }
   },
-  created() {
+  created () {
     window.wwLib = undefined;
     this.init();
   },
-  mounted() {
-    this.elements = [...this.$el.querySelectorAll(".bubble")];
+  mounted () {
+    this.elements = [...this.$el.querySelectorAll('.bubble')];
     this.motion = Motion(this.elements);
     this.layout();
-    window.addEventListener("resize", this.layout);
+    window.addEventListener('resize', this.layout);
   },
-  destroyed() {
+  destroyed () {
     this.motion && this.motion.stop();
-    window.removeEventListener("resize", this.layout);
+    window.removeEventListener('resize', this.layout);
   },
   methods: {
-    init() {
+    init () {
       let needUpdate = false;
       this.section.data = this.section.data || {};
 
@@ -96,7 +85,7 @@ export default {
         this.sectionCtrl.update(this.section);
       }
     },
-    layout() {
+    layout () {
       if (this.screenSize === this.getScreenSize) return;
       this.motion && this.motion.stop();
       this.screenSize = this.getScreenSize;
@@ -109,23 +98,23 @@ export default {
     // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
     // So It won't in the published website!
 
-    add(list, options) {
+    add (list, options) {
       try {
         list.splice(options.index, 0, options.wwObject);
         this.sectionCtrl.update(this.section);
       } catch (error) {
-        wwLib.wwLog.error("ERROR : ", error);
+        wwLib.wwLog.error('ERROR : ', error);
       }
     },
-    remove(list, options) {
+    remove (list, options) {
       try {
         list.splice(options.index, 1);
         this.sectionCtrl.update(this.section);
       } catch (error) {
-        wwLib.wwLog.error("ERROR : ", error);
+        wwLib.wwLog.error('ERROR : ', error);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
