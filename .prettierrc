@@ -6,7 +6,7 @@
     "insertPragma": false,
     "jsxBracketSameLine": true,
     "jsxSingleQuote": true,
-    "printWidth": 80,
+    "printWidth": 140,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,
@@ -25,13 +25,7 @@
             "tabWidth": 2
         }
     ],
-    "vue/max-attributes-per-line": ["warn", {
-        "singleline": 1,
-        "multiline": {
-            "max": 1,
-            "allowFirstLine": false
-        }
-    }],
+    "vue/max-attributes-per-line": "off",
     "vue/html-indent": ["error", "tab", {
         "baseIndent": 1
     }]
