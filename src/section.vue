@@ -86,7 +86,7 @@ export default {
             this.motion.init(this.section.data.initialPositions);
             this.motion.start();
         },
-        // --------- EDITOR FUNCTIONS ---------
+        //--------- EDITOR FUNCTIONS ---------
         // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
         // So It won't in the published website!
         /* wwManager:start */
@@ -106,7 +106,7 @@ export default {
                 wwLib.wwLog.error('ERROR : ', error);
             }
         }
-        /* wwManager:end */
+        /*wwManager:end */
     }
 };
 </script>
