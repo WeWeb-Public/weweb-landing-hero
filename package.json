@@ -49,8 +49,7 @@
     "*.(js|vue)": [
       "npm run lint:fix",
       "npm run lint:css",
-      "prettier-standard --format",
-      "git add"
+      "prettier-standard --format"
     ]
   },
   "browserslist": [
