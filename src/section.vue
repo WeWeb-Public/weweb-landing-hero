@@ -89,7 +89,6 @@ export default {
         //--------- EDITOR FUNCTIONS ---------
         // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
         // So It won't in the published website!
-        /* wwManager:start */
         add(list, options) {
             try {
                 list.splice(options.index, 0, options.wwObject);
@@ -106,7 +105,6 @@ export default {
                 wwLib.wwLog.error('ERROR : ', error);
             }
         }
-        /*wwManager:end */
     }
 };
 </script>
