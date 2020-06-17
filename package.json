@@ -12,8 +12,9 @@
         "build": "weweb-build",
         "serve": "weweb-serve",
         "create-config": "weweb-config",
-        "lint:fix": "eslint src/*.{js,vue} --fix",
         "lint": "eslint src/*.{js,vue}",
+        "lint:fix": "eslint src/*.{js,vue} --fix",
+        "lint:css": "stylelint src/*.vue --fix",
         "test": "lint-staged",
         "prettify": "prettier src/*.{js,vue} --write"
     },
@@ -50,6 +51,7 @@
         ],
         "*.(js|vue)": [
             "npm run lint:fix",
+            "npm run lint:css",
             "npm run lint"
         ]
     },
