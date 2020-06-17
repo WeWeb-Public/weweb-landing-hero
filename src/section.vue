@@ -86,9 +86,10 @@ export default {
             this.motion.init(this.section.data.initialPositions);
             this.motion.start();
         },
-        //--------- EDITOR FUNCTIONS ---------
-        //All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
-        //So It won't in the published website!
+        // --------- EDITOR FUNCTIONS ---------
+        // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
+        // So It won't in the published website!
+
         add(list, options) {
             try {
                 list.splice(options.index, 0, options.wwObject);

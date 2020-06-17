@@ -46,7 +46,7 @@
             "prettier --write",
             "git add"
         ],
-        ".js": [
+        "*.(js|vue)": [
             "npm run lint:fix",
             "npm run lint"
         ]
