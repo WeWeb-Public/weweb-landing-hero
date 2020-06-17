@@ -12,8 +12,8 @@
     "build": "weweb-build",
     "serve": "weweb-serve",
     "create-config": "weweb-config",
-    "lint": "eslint src/**.{js,vue}",
-    "lint:fix": "eslint src/**.{js,vue} --fix",
+    "lint:check": "eslint src/**.{js,vue}",
+    "lint:js": "eslint src/**.{js,vue} --fix",
     "lint:css": "stylelint src/**.vue --fix",
     "prettify": "prettier-standard --format"
   },
@@ -47,9 +47,9 @@
   },
   "lint-staged": {
     "*.(js|vue)": [
-      "npm run lint:fix",
+      "npm run lint:js",
       "npm run lint:css",
-      "prettier-standard --format"
+      "npm run prettify"
     ]
   },
   "browserslist": [
