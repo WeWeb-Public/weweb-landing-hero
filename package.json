@@ -11,7 +11,11 @@
     "scripts": {
         "build": "weweb-build",
         "serve": "weweb-serve",
-        "create-config": "weweb-config"
+        "create-config": "weweb-config",
+        "lint:fix": "eslint src/*.{js,vue} --fix",
+        "lint": "eslint src/*.{js,vue}",
+        "test": "lint-staged",
+        "prettify": "prettier src/*.{js,vue} --write"
     },
     "dependencies": {
         "vue": "2.6.11"
@@ -38,9 +42,13 @@
         }
     },
     "lint-staged": {
-        "./src/*.{js,vue}": [
-            "npx prettier --write",
-            "eslint src/*.{js,vue} --fix-dry-run"
+        "*.(js|vue|html|css)": [
+            "prettier --write",
+            "git add"
+        ],
+        ".js": [
+            "npm run lint:fix",
+            "npm run lint"
         ]
     },
     "browserslist": [
