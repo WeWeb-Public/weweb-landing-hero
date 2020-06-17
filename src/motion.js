@@ -31,14 +31,17 @@ const Motion = (elements) => {
     };
 
     return {
-        init (initialPositions) {
+        init(initialPositions) {
             positions = initialPositions;
         },
-        start () {
+        start() {
             layout();
             update();
         },
-        stop () {
+        started() {
+            return !!loopId;
+        },
+        stop() {
             cancelAnimationFrame(loopId);
         }
     };

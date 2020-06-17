@@ -3,7 +3,7 @@
          :height="124 * scale"
          viewBox="0 0 132 132"
          fill="none"
-         class="bubble"
+         ref="root"
          xmlns="http://www.w3.org/2000/svg">
       <rect x="4"
             y="4"
@@ -26,12 +26,12 @@
                 type: String,
                 default: '#000000'
             }
+        },
+        mounted() {
+            this.$refs.root.style.setProperty('--transition-duration','3000ms')
         }
     };
 </script>
-<style>
-  .bubble {
-    position: absolute;
-    transition: all 3000ms ease-in-out
-  }
+<style scoped>
+
 </style>
