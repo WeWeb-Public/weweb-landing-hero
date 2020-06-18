@@ -46,29 +46,29 @@ export default {
     elements: []
   }),
   computed: {
-    section () {
+    section() {
       return this.sectionCtrl.get();
     },
-    getScreenSize () {
+    getScreenSize() {
       return this.$store.getters['front/getScreenSize'];
     }
   },
-  created () {
+  created() {
     window.wwLib = undefined;
     this.init();
   },
-  mounted () {
+  mounted() {
     this.elements = [...this.$el.querySelectorAll('.bubble')];
     this.motion = Motion(this.elements);
     this.layout();
     window.addEventListener('resize', this.layout);
   },
-  destroyed () {
+  destroyed() {
     this.motion && this.motion.stop();
     window.removeEventListener('resize', this.layout);
   },
   methods: {
-    init () {
+    init() {
       let needUpdate = false;
       this.section.data = this.section.data || {};
 
@@ -85,8 +85,8 @@ export default {
         this.sectionCtrl.update(this.section);
       }
     },
-    layout () {
-      if (this.screenSize === this.getScreenSize) return;
+    layout() {
+      if (this.screenSize == this.getScreenSize) return;
       this.motion && this.motion.stop();
       this.screenSize = this.getScreenSize;
       this.section.data.initialPositions = positions[this.screenSize];
@@ -98,7 +98,7 @@ export default {
     // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
     // So It won't in the published website!
 
-    add (list, options) {
+    add(list, options) {
       try {
         list.splice(options.index, 0, options.wwObject);
         this.sectionCtrl.update(this.section);
@@ -106,7 +106,7 @@ export default {
         wwLib.wwLog.error('ERROR : ', error);
       }
     },
-    remove (list, options) {
+    remove(list, options) {
       try {
         list.splice(options.index, 1);
         this.sectionCtrl.update(this.section);
