@@ -23,6 +23,7 @@
                       @ww-remove="remove(section.data.contentList, $event)">
         <wwObject tag="div"
                   ww-default="ww-text"
+                  style="width:100%"
                   v-for="item in section.data.contentList"
                   :key="item.uniqueId"
                   :ww-object="item"
@@ -135,6 +136,10 @@
     position: relative;
     width: 100%;
     height: 100vh;
+
+    .ww-layout-column {
+      width: 100%;
+    }
 
     .bubbles-container {
       position: absolute;
