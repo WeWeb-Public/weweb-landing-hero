@@ -12,7 +12,8 @@
       <ww-bubble v-for="(bubble,index) in section.data.initialPositions"
                  :scale="bubble.scale"
                  :color="bubble.color"
-                 :key="index">
+                 :key="index"
+                  data-ww-hero-bubble>
       </ww-bubble>
     </div>
     <div class="content">
@@ -68,7 +69,7 @@
             this.init();
         },
         mounted () {
-            this.elements = [...this.$el.querySelectorAll('.bubble')];
+            this.elements = [...this.$el.querySelectorAll('[data-ww-hero-bubble]')];
             this.motion = Motion(this.elements);
             this.layout();
             window.addEventListener('resize', this.layout);
