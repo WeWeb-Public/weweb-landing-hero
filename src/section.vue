@@ -9,11 +9,14 @@
     <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
     <!-- wwManager:end -->
     <div class="bubbles-container">
-      <ww-bubble v-for="(bubble,index) in section.data.initialPositions"
+      <ww-bubble v-for="(bubble,index) in positions"
                  :scale="bubble.scale"
                  :color="bubble.color"
+                 :x="bubble.x"
+                 :y="bubble.y"
+                 :alpha="bubble.alpha"
                  :key="index"
-                  data-ww-hero-bubble>
+                 data-ww-hero-bubble>
       </ww-bubble>
     </div>
     <div class="content">
@@ -36,98 +39,93 @@
 </template>
 
 <script>
-    const wwo = window.wwLib.wwObject;
-    const wwu = window.wwLib.wwUtils;
+  const wwo = window.wwLib.wwObject;
+  const wwu = window.wwLib.wwUtils;
 
-    import wwBubble from './bubble.vue';
-    import positions from './positions';
-    import Motion from './motion';
+  import wwBubble from "./bubble.vue";
+  import initialPositions from "./positions";
+  import Motion from "./motion";
 
-    export default {
-        name: '__COMPONENT_NAME__',
-        components: {
-            wwBubble
-        },
-        motion: {},
-        props: {
-            sectionCtrl: Object
-        },
-        data: () => ({
-            screenSize: void 0,
-            elements: []
-        }),
-        computed: {
-            section () {
-                return this.sectionCtrl.get();
-            },
-            getScreenSize () {
-                return this.$store.getters['front/getScreenSize'];
-            }
+  export default {
+    name: "__COMPONENT_NAME__",
+    components: {
+      wwBubble
+    },
+    motion: {},
+    props: {
+      sectionCtrl: Object
+    },
+    data: () => ({
+      screenSize: void 0,
+      positions:[]
+    }),
+    computed: {
+      section () {
+        return this.sectionCtrl.get();
+      },
+      getScreenSize () {
+        return this.$store.getters["front/getScreenSize"];
+      }
 
-        },
-        created () {
-            this.init();
-        },
-        mounted () {
-            this.elements = [...this.$el.querySelectorAll('[data-ww-hero-bubble]')];
-            this.motion = Motion(this.elements);
-            this.layout();
-            window.addEventListener('resize', this.layout);
-        },
-        destroyed () {
-            this.motion && this.motion.stop();
-            window.removeEventListener('resize', this.layout);
-        },
-        methods: {
-            init () {
-                let needUpdate = false;
-                this.section.data = this.section.data || {};
+    },
+    created () {
+      this.init();
+    },
+    mounted () {
+      this.motion = Motion(this.positions);
+      this.layout();
+      window.addEventListener("resize", this.layout);
+    },
+    destroyed () {
+      this.motion && this.motion.stop();
+      window.removeEventListener("resize", this.layout);
+    },
+    methods: {
+      init () {
+        let needUpdate = false;
+        this.section.data = this.section.data || {};
 
-                if (!this.section.data.initialPositions) {
-                    this.section.data.initialPositions = positions[this.getScreenSize];
-                    needUpdate = true;
-                }
-
-                if (!this.section.data.contentList) {
-                    this.section.data.contentList = [];
-                    needUpdate = true;
-                }
-                if (needUpdate) {
-                    this.sectionCtrl.update(this.section);
-                }
-            },
-            layout () {
-                if (this.screenSize === this.getScreenSize) return;
-                this.motion && this.motion.stop();
-                this.screenSize = this.getScreenSize;
-                this.section.data.initialPositions = positions[this.screenSize];
-                this.sectionCtrl.update(this.section);
-                this.motion.init(this.section.data.initialPositions);
-                this.motion.start();
-            },
-            // --------- EDITOR FUNCTIONS ---------
-            // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
-            // So It won't in the published website!
-            /* wwManager:start */
-            add (list, options) {
-                try {
-                    list.splice(options.index, 0, options.wwObject);
-                    this.sectionCtrl.update(this.section);
-                } catch (error) {
-                    wwLib.wwLog.error('ERROR : ', error);
-                }
-            },
-            remove (list, options) {
-                try {
-                    list.splice(options.index, 1);
-                    this.sectionCtrl.update(this.section);
-                } catch (error) {
-                    wwLib.wwLog.error('ERROR : ', error);
-                }
-            }
-            /* wwManager:end */
+        if (!this.section.data.contentList) {
+          this.section.data.contentList = [];
+          needUpdate = true;
         }
-    };
+        if (needUpdate) {
+          this.sectionCtrl.update(this.section);
+        }
+        this.positions = initialPositions[this.getScreenSize];
+      },
+      layout () {
+        if (this.screenSize === this.getScreenSize) return;
+        this.motion && this.motion.stop();
+        this.screenSize = this.getScreenSize;
+        this.positions = initialPositions[this.screenSize];
+        this.motion = Motion(this.positions);
+        this.sectionCtrl.update(this.section);
+        this.motion.start();
+      },
+      // --------- EDITOR FUNCTIONS ---------
+      // All the codes between /* wwManager:start */ and /* wwManager:end */ are only for editor purposes
+      // So It won't in the published website!
+      /* wwManager:start */
+      add (list, options) {
+        try {
+          list.splice(options.index, 0, options.wwObject);
+          this.sectionCtrl.update(this.section);
+        } catch (error) {
+          wwLib.wwLog.error("ERROR : ", error);
+        }
+      },
+      remove (list, options) {
+        try {
+          list.splice(options.index, 1);
+          this.sectionCtrl.update(this.section);
+        } catch (error) {
+          wwLib.wwLog.error("ERROR : ", error);
+        }
+      }
+      /* wwManager:end */
+    }
+  };
 </script>
 
 
