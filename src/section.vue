@@ -136,7 +136,7 @@
   .ww-landing-hero {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 
     .ww-layout-column {
       width: 100%;
@@ -160,12 +160,12 @@
 
       @media(min-width: 768px) {
         width: 100%;
-        height: 838px;
+        min-height: 838px;
       }
 
       @media (min-width: 1200px) {
         width: 1440px;
-        height: 716px;
+        min-height: 716px;
       }
     }
   }
