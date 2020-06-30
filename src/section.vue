@@ -40,13 +40,13 @@ export default {
         screenSize: void 0,
         positions: []
     }),
-    watch: {
-        // getScreenSize(oldValue, newValue) {
-        //     if (oldValue === newValue) return;
-        //     console.log(oldValue, newValue);
-        //     this.layout();
-        // }
-    },
+    // watch: {
+    //     getScreenSize(oldValue, newValue) {
+    //         if (oldValue === newValue) return;
+    //         console.log(oldValue, newValue);
+    //         this.layout();
+    //     }
+    // },
     computed: {
         section() {
             return this.sectionCtrl.get();
@@ -56,11 +56,11 @@ export default {
         }
     },
     created() {
-        this.init();
+        // this.init();
     },
     mounted() {
-        this.motion = Motion(this.positions);
-        setTimeout(() => this.layout(), 100);
+        // this.motion = Motion(this.positions);
+        // setTimeout(() => this.layout());
     },
     destroyed() {
         this.motion && this.motion.stop();
@@ -82,6 +82,7 @@ export default {
         layout() {
             if (this.screenSize === this.getScreenSize) return;
 
+            console.log('layout');
             this.motion && this.motion.stop();
             this.screenSize = this.getScreenSize;
             this.positions = initialPositions[this.screenSize];
