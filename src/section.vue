@@ -62,6 +62,7 @@
     watch: {
       getScreenSize (oldValue, newValue) {
         if(oldValue === newValue) return;
+        console.log(oldValue, newValue);
         this.layout();
       }
     },
@@ -100,11 +101,12 @@
       },
       layout () {
         if (this.screenSize === this.getScreenSize) return;
+        
+        console.log('layout');
         this.motion && this.motion.stop();
         this.screenSize = this.getScreenSize;
         this.positions = initialPositions[this.screenSize];
         this.motion = Motion(this.positions);
-        this.sectionCtrl.update(this.section);
         this.motion.start();
       },
       // --------- EDITOR FUNCTIONS ---------
