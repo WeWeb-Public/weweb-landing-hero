@@ -57,8 +57,13 @@
     },
     data: () => ({
       screenSize: void 0,
-      positions:[]
+      positions: []
     }),
+    watch: {
+      getScreenSize () {
+        this.layout();
+      }
+    },
     computed: {
       section () {
         return this.sectionCtrl.get();
@@ -73,12 +78,10 @@
     },
     mounted () {
       this.motion = Motion(this.positions);
-      this.layout();
-      window.addEventListener("resize", this.layout);
+      setTimeout(() => this.layout());
     },
     destroyed () {
       this.motion && this.motion.stop();
-      window.removeEventListener("resize", this.layout);
     },
     methods: {
       init () {
