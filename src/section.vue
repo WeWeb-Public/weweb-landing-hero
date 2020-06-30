@@ -49,20 +49,14 @@ export default {
         }
     },
     created() {
-        wwLib.$on('init-hero', this.init);
-        // this.init();
+        this.init();
     },
     mounted() {
-        wwLib.$on('mounted-hero', () => {
+        setTimeout(() => {
             this.motion = Motion(this.positions);
             this.layout();
             window.addEventListener('resize', this.layout);
-        });
-        // setTimeout(() => {
-        //     this.motion = Motion(this.positions);
-        //     this.layout();
-        //     window.addEventListener('resize', this.layout);
-        // }, 3000);
+        }, 3000);
     },
     destroyed() {
         window.removeEventListener('resize', this.layout);
