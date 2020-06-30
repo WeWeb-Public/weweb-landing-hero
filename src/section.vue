@@ -49,9 +49,15 @@ export default {
         }
     },
     created() {
+        wwLib.$on('init-hero', this.init);
         // this.init();
     },
     mounted() {
+        wwLib.$on('mounted-hero', () => {
+            this.motion = Motion(this.positions);
+            this.layout();
+            window.addEventListener('resize', this.layout);
+        });
         // setTimeout(() => {
         //     this.motion = Motion(this.positions);
         //     this.layout();
@@ -59,8 +65,8 @@ export default {
         // }, 3000);
     },
     destroyed() {
-        // window.removeEventListener('resize', this.layout);
-        // this.motion && this.motion.stop();
+        window.removeEventListener('resize', this.layout);
+        this.motion && this.motion.stop();
     },
     methods: {
         init() {
