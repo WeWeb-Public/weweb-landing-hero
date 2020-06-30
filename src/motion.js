@@ -22,9 +22,6 @@ const Motion = (positions) => {
   };
 
   return {
-    init (initialPositions) {
-      positions = initialPositions;
-    },
     start () {
       update();
     },
