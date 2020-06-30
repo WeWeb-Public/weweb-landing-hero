@@ -40,35 +40,33 @@ export default {
         screenSize: void 0,
         positions: []
     }),
-    // watch: {
-    //     getScreenSize(oldValue, newValue) {
-    //         if (oldValue === newValue) return;
-    //         console.log(oldValue, newValue);
-    //         this.layout();
-    //     }
-    // },
     computed: {
-        section() {
-            return this.sectionCtrl.get();
-        },
-        getScreenSize() {
-            return this.$store.getters['front/getScreenSize'];
-        }
+      section () {
+        return this.sectionCtrl.get();
+      },
+      getScreenSize () {
+        return this.$store.getters["front/getScreenSize"];
+      }
+
     },
-    created() {
-        // this.init();
+    created () {
+      this.init();
     },
-    mounted() {
-        // this.motion = Motion(this.positions);
-        // setTimeout(() => this.layout());
+    mounted () {
+      setTimeout(() => {
+        this.motion = Motion(this.positions);
+        this.layout();
+        window.addEventListener("resize", this.layout);
+      }, 3000);
     },
     destroyed() {
-        this.motion && this.motion.stop();
+        window.removeEventListener("resize", this.layout);
+      this.motion && this.motion.stop();
     },
     methods: {
-        init() {
-            let needUpdate = false;
-            this.section.data = this.section.data || {};
+      init () {
+        let needUpdate = false;
+        this.section.data = this.section.data || {};
 
             if (!this.section.data.contentList) {
                 this.section.data.contentList = [];
@@ -77,7 +75,7 @@ export default {
             if (needUpdate) {
                 this.sectionCtrl.update(this.section);
             }
-            this.positions = initialPositions[this.getScreenSize];
+            this.positions = initialPositions[this.getScreenSize] || initialPositions["lg"];
         },
         layout() {
             if (this.screenSize === this.getScreenSize) return;
