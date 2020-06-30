@@ -60,7 +60,8 @@
       positions: []
     }),
     watch: {
-      getScreenSize () {
+      getScreenSize (oldValue, newValue) {
+        if(oldValue === newValue) return;
         this.layout();
       }
     },
