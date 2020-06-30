@@ -41,32 +41,31 @@ export default {
         positions: []
     }),
     computed: {
-      section () {
-        return this.sectionCtrl.get();
-      },
-      getScreenSize () {
-        return this.$store.getters["front/getScreenSize"];
-      }
-
+        section() {
+            return this.sectionCtrl.get();
+        },
+        getScreenSize() {
+            return this.$store.getters['front/getScreenSize'];
+        }
     },
-    created () {
-      this.init();
+    created() {
+        // this.init();
     },
-    mounted () {
-      setTimeout(() => {
-        this.motion = Motion(this.positions);
-        this.layout();
-        window.addEventListener("resize", this.layout);
-      }, 3000);
+    mounted() {
+        // setTimeout(() => {
+        //     this.motion = Motion(this.positions);
+        //     this.layout();
+        //     window.addEventListener('resize', this.layout);
+        // }, 3000);
     },
     destroyed() {
-        window.removeEventListener("resize", this.layout);
-      this.motion && this.motion.stop();
+        // window.removeEventListener('resize', this.layout);
+        // this.motion && this.motion.stop();
     },
     methods: {
-      init () {
-        let needUpdate = false;
-        this.section.data = this.section.data || {};
+        init() {
+            let needUpdate = false;
+            this.section.data = this.section.data || {};
 
             if (!this.section.data.contentList) {
                 this.section.data.contentList = [];
@@ -75,12 +74,11 @@ export default {
             if (needUpdate) {
                 this.sectionCtrl.update(this.section);
             }
-            this.positions = initialPositions[this.getScreenSize] || initialPositions["lg"];
+            this.positions = initialPositions[this.getScreenSize] || initialPositions['lg'];
         },
         layout() {
             if (this.screenSize === this.getScreenSize) return;
 
-            console.log('layout');
             this.motion && this.motion.stop();
             this.screenSize = this.getScreenSize;
             this.positions = initialPositions[this.screenSize];
