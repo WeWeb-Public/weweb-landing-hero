@@ -9,7 +9,7 @@
         <wwSectionEditMenu :sectionCtrl="sectionCtrl"></wwSectionEditMenu>
         <!-- wwManager:end -->
         <div class="bubbles-container">
-            <ww-bubble v-for="(bubble, index) in positions" :scale="bubble.scale" :color="bubble.color" :x="bubble.x" :y="bubble.y" :alpha="bubble.alpha" :key="index" data-ww-hero-bubble> </ww-bubble>
+            <ww-bubble v-for="(bubble, index) in positions" :scale="bubble.scale" :color="bubble.color" :xp="bubble.xp" :yp="bubble.yp" :x="bubble.x" :y="bubble.y" :alpha="bubble.alpha" :key="index" data-ww-hero-bubble> </ww-bubble>
         </div>
         <div class="content">
             <wwLayoutColumn tag="div" ww-default="ww-text" :ww-list="section.data.contentList" @ww-add="add(section.data.contentList, $event)" @ww-remove="remove(section.data.contentList, $event)">
@@ -72,14 +72,19 @@ export default {
             if (needUpdate) {
                 this.sectionCtrl.update(this.section);
             }
-            this.positions = initialPositions[this.getScreenSize] || initialPositions['lg'];
+
+            initialPositions.forEach(pos => {
+                pos.x = 0;
+                pos.y = 0;
+            });
+            this.positions = initialPositions;
         },
         layout() {
             if (this.screenSize === this.getScreenSize) return;
 
             this.motion && this.motion.stop();
             this.screenSize = this.getScreenSize;
-            this.positions = initialPositions[this.screenSize];
+            this.positions = initialPositions;
             this.motion = Motion(this.positions);
             this.motion.start();
         },
@@ -121,10 +126,12 @@ export default {
     .bubbles-container {
         position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
+        left: 50%;
+        transform: translate(-50%);
         bottom: 0;
         z-index: -1;
+        width: 100%;
+        min-width: 700px;
         overflow: hidden;
     }
 
