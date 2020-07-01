@@ -52,11 +52,9 @@ export default {
         this.init();
     },
     mounted() {
-        setTimeout(() => {
-            this.motion = Motion(this.positions);
-            this.layout();
-            window.addEventListener('resize', this.layout);
-        }, 3000);
+        this.motion = Motion(this.positions);
+        this.layout();
+        window.addEventListener('resize', this.layout);
     },
     destroyed() {
         window.removeEventListener('resize', this.layout);
