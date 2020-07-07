@@ -118,7 +118,7 @@ export default {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
 
     .ww-layout-column {
         width: 100%;
