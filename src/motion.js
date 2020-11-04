@@ -23,12 +23,7 @@ const Motion = positions => {
 
     return {
         start() {
-            if(window.__WW_IS_PRERENDER__){
-                update();
-            }
-            else {
-                setTimeout(update, 10000);
-            }
+            update();
         },
         stop() {
             cancelAnimationFrame(loopId);
